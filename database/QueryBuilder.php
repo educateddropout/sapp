@@ -21,7 +21,7 @@ class QueryBuilder
 
 		$statement->execute();
 
-		return $statement->fetchAll(PDO::FETCH_CLASS);
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
 
 	}
 

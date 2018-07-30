@@ -3,58 +3,130 @@
 class HouseholdDetail {
 
 	protected $rosterCount = 0;
-	protected $rosterNames = array();
-	protected $withSibling = false;
-	protected $withParent = false;
-	protected $youngestMemberBirthday = '';
-	protected $oldestMemberBirthday = '';
-	protected $spouseBirthday = '';
+	protected $childrenNames = array();
+	protected $withSibling = FALSE;
+	protected $withParent = FALSE;
+	protected $youngestMemberBirthYear = ''; protected $oldestMemberBirthYear = '';
+	protected $spouseBirthYear = '';
 	protected $numberOfChildren = 0;
 	protected $numberOfGrandChildren = 0;
-	protected $oldestChildName = '';
-	protected $youngestChildName = '';
-	protected $isOldest = false;
-	protected $birthday	= '';
+	//protected $isOldest = false;
+	protected $birthYear	= '';
 
 	public function __construct($results){
 
 		$this->rosterCount	= count($results);
 
-		foreach ($resuls as $result) {
-			foreach ($result as $key => $value) {
+		$ctr = 0; // always make $ctr variable reusable
+
+		foreach ($results as $result) {
+
+				$birthYear = substr($result['birthday'], 0, 4);
+
+				//minimum and maximum birthYear
+				if($ctr == 0){
+
+					$this->oldestMemberBirthYear = $birthYear;
+					$this->youngestMemberBirthYear = $birthYear;
+				}
+				else{
+
+					//oldest
+					if($this->oldestMemberBirthYear > $birthYear){
+						$this->oldestMemberBirthYear = $birthYear;
+					}
+
+					//youngest
+					if($this->youngestMemberBirthYear < $birthYear){
+						$this->youngestMemberBirthYear = $birthYear;
+					}
+				}
+
+				if($result['rel_hh_name'] == '1 - Household Head'){
+
+					$this->birthYear = $birthYear;
+
+				}
+
+
 				
-				if($key == '7 - Father / Mother'){
-					$this->$withParent	= true;
+				if($result['rel_hh_name'] == '2 - Wife / Spouse'){
+
+					$this->spouseBirthYear = $birthYear;
+
+				}
+				
+				if($result['rel_hh_name'] == '3 - Son / Daughter'){
+
+					$this->numberOfChildren++;
+
+					$fullName = "{$result['first_name']} {$result['mid_name']} {$result['last_name']} {$result['ext_name']}";
+
+					rtrim($fullName);
+					array_push($this->childrenNames,$fullName);
 				}
 
-				if($key == '6 - Grandson / Granddaugh'){
-					$this->$numberOfGrandChildren++;
+				if($result['rel_hh_name'] == '4 - Brother / Sister'){
+
+					$this->withSibling	= TRUE;
+
 				}
 
-				if($key == '5 - Son-in-law / Daughter'){
-					
+			
+				if($result['rel_hh_name'] == '6 - Grandson / Granddaugh'){
+
+					$this->numberOfGrandChildren++;
+
 				}
 
-				if($key == '4 - Brother / Sister'){
-					$this->$withSibling	= true;
+				if($result['rel_hh_name'] == '7 - Father / Mother'){
+
+					$this->withParent	= TRUE;
+
 				}
 
-				if($key == '3 - Son / Daughter'){
-					$this->$numberOfChildren++;
-				}
-
-				if($key == '2 - Wife / Spouse'){
-					
-				}
-
-			}
+			$ctr++;
 		}
 
 	}
 
-	public function checkHouseholdHeadSiblings($results){
+	public function birthYear(){
 
-			
+		return $this->birthYear;
+
+	}
+
+	public function withParent(){
+
+		return $this->withParent;
+	}
+
+	public function withSibling(){
+		return $this->withSibling;
+	}
+
+	public function numberOfChildren(){
+		return $this->numberOfChildren;
+	}
+
+	public function numberOfGrandChildren(){
+		return $this->numberOfGrandChildren;
+	}
+
+	public function rosterCount(){
+		return $this->rosterCount;
+	}
+
+	public function oldestMemberBirthYear(){
+		return $this->oldestMemberBirthYear;
+	}
+
+	public function youngestMemberBirthYear(){
+		return $this->youngestMemberBirthYear;
+	}
+
+	public function spouseBirthYear(){
+		return $this->spouseBirthYear;
 	}
 
 }

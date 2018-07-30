@@ -1,6 +1,8 @@
 <?php
 
 $database = require 'bootstrap.php';
+require 'HouseholdDetail.php';
+require 'FormulateHouseholdQuestions.php';
 
 /*header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -37,30 +39,16 @@ function analyzeHousehold($householdInformation){
 }
 
 //$householdNumber = $request['household_number'];
-$householdID = '012801001-2-01665436';
+$householdID = '012801001-2-01665419';
 
 $results  = $database->searchByHousehold($householdID);
 
-//$householdDetail = new $householdDetail($results);
+//$householdDetail = new HouseholdDetail($results);
 
-//analyzeHousehold($result);
+$householdQuestions = new FormulateHouseholdQuestions(new HouseholdDetail($results));
 
 
-function checkHouseholdHeadSiblings($results){
 
-		foreach ($results as $result) {
-
-				foreach ($result as $key => $value) {
-					if($key == "rel_hh_name"){
-						echo $value;
-					}
-				}
-
-		}
-}
-
-checkHouseholdHeadSiblings($results);
-//echo count($result);
 
 //$result = json_encode($result);
 
