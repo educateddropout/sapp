@@ -2,41 +2,69 @@
 
 $database = require 'bootstrap.php';
 
-header("Access-Control-Allow-Origin: *");
+/*header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 //header('Content-Type: application/download; charset=utf-8');
 
 
 // decoding of post data //
 $postdata = file_get_contents("php://input");
-$request = (array)json_decode($postdata);
+$request = (array)json_decode($postdata);*/
 
+function analyzeHousehold($householdInformation){
 
-$householdNumber = $request['household_number'];
-$firstName = $request['first_name'];
-$lastName = $request['last_name'];
+	$hhRosterCount = count($householdInformation);
 
-$searchbyCtr  = "";
+	$questionLists = ["Provide 1 full name of a household member except household head name.",
+	"How many members do you have in your household? (Including other relative, domestic helper, non-relative and boarder).",
+	"What is the household head birthdate?",
+	"Are there any sibling of a household head living in your household?",
+	"Are the household head's mother/father still living in the household?",
+	"What is the birthday of the oldest member of the household? (During the assessment)",
+	"What is the birthday of the youngest member of the household? (During the assessment)",
+	"What is the birthday of the household head spouse? ",
+	"Is the household head, the oldest member of the houseold?",
+	"How many children of the household head living in the household?",
+	"How many grandchildren of the household head living in the household?"];
 
-if($householdNumber != ''){
-	$result = $database->searchByHousehold($householdNumber);
-	$searchbyCtr = "Household Number";
+	$householdQuestion = "[";
 
-	if(empty($result) && ($firstName != "" || $lastName != "")){
-
-		$result = $database->searchByName($firstName, $lastName);
-		$searchbyCtr = "Name";
+	if($hhRosterCount	!=  1){
+			$householdQuestion .= "{\"question\" : \"{$questionLists[1]}\"";
 	}
-}
-else{
+	print_r(	$householdQuestion);
 
-	$result = $database->searchByName($firstName, $lastName);
-	$searchbyCtr = "Name";
 }
 
-$result = json_encode($result);
+//$householdNumber = $request['household_number'];
+$householdID = '012801001-2-01665436';
 
-print_r($result);
+$results  = $database->searchByHousehold($householdID);
+
+//$householdDetail = new $householdDetail($results);
+
+//analyzeHousehold($result);
+
+
+function checkHouseholdHeadSiblings($results){
+
+		foreach ($results as $result) {
+
+				foreach ($result as $key => $value) {
+					if($key == "rel_hh_name"){
+						echo $value;
+					}
+				}
+
+		}
+}
+
+checkHouseholdHeadSiblings($results);
+//echo count($result);
+
+//$result = json_encode($result);
+
+//print_r($result);
 
 
 ?>

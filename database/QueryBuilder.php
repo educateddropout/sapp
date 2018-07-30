@@ -14,10 +14,10 @@ class QueryBuilder
 
 	}
 
-	public function searchByHousehold($householdNumber){
+	public function searchByHousehold($householdID){
 
 		$statement = $this->pdo->prepare("SELECT * from tbl_search
-											WHERE hh_number = '{$householdNumber}'");
+											WHERE hh_id = '{$householdID}'");
 
 		$statement->execute();
 
@@ -25,29 +25,5 @@ class QueryBuilder
 
 	}
 
-	// arg name, column name
-	public function searchByName($firstName, $lastName){
-
-		if($lastName != "" && $firstName != ""){
-
-			$statement = $this->pdo->prepare("SELECT * from tbl_search
-											WHERE first_name like '{$firstName}%' and last_name like '{$lastName}%'");
-
-		}
-		else{
-			if($lastName == ""){
-				$statement = $this->pdo->prepare("SELECT * from tbl_search
-											WHERE first_name like '{$firstName}%'");
-			}
-			else{
-				$statement = $this->pdo->prepare("SELECT * from tbl_search
-											WHERE last_name like '{$lastName}%'");
-			}
-		}
-
-		$statement->execute();
-
-		return $statement->fetchAll(PDO::FETCH_CLASS);
-	}
 
 }

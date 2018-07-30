@@ -10,7 +10,7 @@ class Connection
 
 		try{
 
-			return new PDO('mysql:host=localhost;dbname=uct_search','root','');
+			return new PDO('mysql:host=localhost;dbname=search_db','root','');
 
 		} catch (PDOException $e) {
 
