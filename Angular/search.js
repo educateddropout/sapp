@@ -11,27 +11,19 @@
 			this.all_error_message = "";
 			this.withError = false;
 			this.resultMessage = "";
+			this.wrongAnswer = 0;
+			this.correctAnswer = 0;
 			
 			this.submitSearch = function(){
 				
-				if((sc.household_number.length == 8 && !isNaN(sc.household_number)) || sc.household_number == ""){
+				if(sc.household_id.length == 20){
 
 					sc.household_number_error_message = "";
 				}
 				else{
-
+					
 					sc.withError = true;
 					sc.household_number_error_message = "Invalid household number. Please Check!";
-				}
-
-				if(sc.household_number == "" && sc.first_name == "" && sc.last_name == "" ){
-
-					sc.withError = true;
-					sc.all_error_message = "Please provide details on atleast one input box!";
-
-				}
-				else{
-					sc.all_error_message = "";
 				}
 
 				if(sc.withError == false ){
@@ -40,9 +32,7 @@
 						method: "POST",
 						url: "search.php",
 						data: {
-						   "household_number" : sc.household_number,
-						   "first_name" : sc.first_name,
-						   "last_name" : sc.last_name,
+						   "household_id" : sc.household_id,
 					},
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
@@ -52,24 +42,31 @@
 						//console.log(response.data[0].first_name);
 						console.log(response.data);
 						sc.results = response.data;
-						if(response.data.length > 1){
-							sc.resultMessage = "Found " + response.data.length + " results ...";
-						}
-						else if(response.data.length == 1){
-							sc.resultMessage = "Found " + response.data.length + " result ...";
-						}
-						else{
-							sc.resultMessage = "No result found...";
-						}
 
 					}, function myError(response) {
 
-						console.log(response);
+						console.log("response");
 
 					});
 				}
         	};
 
+        	this.submitAns = function(userAnswer, dbAnswer, ansctr){
+
+        		alert(userAnswer + "test" + dbAnswer);
+        		if(userAnswer == dbAnswer){
+        			return 1;
+
+        		}
+        		else{
+        			return 0;
+        		}
+        	}
+
+        	
+
      });
+
+
 
 })();

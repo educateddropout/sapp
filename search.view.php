@@ -2,7 +2,6 @@
 
 
 
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +44,7 @@
 
 						</div>
 
-						<input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="sc.household_number" maxlength="8">
+						<input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" ng-model="sc.household_id" maxlength="20">
 						
 					</div>
 					<small class="text-danger">&nbsp{{sc.household_number_error_message}}</small>
@@ -59,13 +58,7 @@
 
 				</div>
 			</div>
-			<div class="col">
-				<div class="input-group mb-3">
-
-					
-
-				</div>
-			</div>
+			
 			<div class="col-push">
 				<button type="button" class="btn btn-dark "><i class="fa fa-search" aria-hidden="true" ng-click="sc.submitSearch()">&nbsp <strong>Search</strong></i></button>
 			</div>
@@ -78,17 +71,36 @@
 			<div class="p-2 text-dark">{{sc.resultMessage}}</div>
 		</div>
 
-
 		<div ng-repeat="rs in sc.results">
-			
-			<a  ng-href="hhdetail?hh={{rs.hh_id}}">"<strong>{{rs.hh_id}}</strong>","{{rs.last_name}}, {{rs.first_name}} {{rs.mid_name}} {{rs.ext_name}} ","{{rs.birthday}}","{{rs.rel_hh_name}}"</a>
+			<div class=" row border">
+				<h3><p class=""><strong>{{rs.question}}</strong>
+				</p></h3>
+			</div>
+			{{rs.answer}}
+			<div class="row" ng-init="ansctr = 2">
+				<div class="container">
+					<div class="row">
+						<div class="col border">
+							<span ng-show = "ansctr == 1" class="input-group-text p-3 mb-2 bg-success text-white rounded-circle"><i class="fa fa-check" aria-hidden="true"></i></span>
+							<span ng-show = "ansctr == 0" class="input-group-text p-3 mb-2 bg-danger text-white rounded-circle"><i class="fa fa-times" aria-hidden="true"></i></span>
+						</div>
+						<div class="col-11 border">
+							<div class="input-group mb-2">
+								<input type="text" class="form-control" ng-model="rs.userAnswer">
+								<div class="input-group-append">
+									<button ng-click="ansctr = sc.submitAns(rs.userAnswer, rs.answer)">Submit</button>{{ansctr}}
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
 		</div>
 
 	</main>
 </body>
-<script>
-	$(function () {
-	  $('[data-toggle="tooltip"]').tooltip()
-	})
-</script>
 </html>

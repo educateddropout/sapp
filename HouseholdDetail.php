@@ -4,8 +4,8 @@ class HouseholdDetail {
 
 	protected $rosterCount = 0;
 	protected $childrenNames = array();
-	protected $withSibling = FALSE;
-	protected $withParent = FALSE;
+	protected $withSibling = "NO";
+	protected $withParent = "NO";
 	protected $youngestMemberBirthYear = ''; protected $oldestMemberBirthYear = '';
 	protected $spouseBirthYear = '';
 	protected $numberOfChildren = 0;
@@ -68,7 +68,7 @@ class HouseholdDetail {
 
 				if($result['rel_hh_name'] == '4 - Brother / Sister'){
 
-					$this->withSibling	= TRUE;
+					$this->withSibling	= "YES";
 
 				}
 
@@ -81,7 +81,7 @@ class HouseholdDetail {
 
 				if($result['rel_hh_name'] == '7 - Father / Mother'){
 
-					$this->withParent	= TRUE;
+					$this->withParent	= "YES";
 
 				}
 
@@ -128,6 +128,11 @@ class HouseholdDetail {
 	public function spouseBirthYear(){
 		return $this->spouseBirthYear;
 	}
+
+	public function childrenNames(){
+		return $this->childrenNames;
+	}
+
 
 }
 
