@@ -13,7 +13,10 @@
 			this.resultMessage = "";
 			this.wrongAnswer = 0;
 			this.correctAnswer = 0;
-			
+			this.ctr = 0;
+			this.panelColor = "w3-light-grey";
+			this.image = ['images/img_avatar4.png','images/img_avatar4.png','images/img_avatar4.png'];
+
 			this.submitSearch = function(){
 				
 				if(sc.household_id.length == 20){
@@ -51,16 +54,34 @@
 				}
         	};
 
-        	this.submitAns = function(userAnswer, dbAnswer, ansctr){
+        	this.submitAns = function(userAnswer, dbAnswer){
 
+        		
+        		
+        		sc.panelColor = "w3-green";
         		alert(userAnswer + "test" + dbAnswer);
+        		sc.panelColor = "w3-light-grey";
+        		sc.ctr++;
+
         		if(userAnswer == dbAnswer){
-        			return 1;
+        			sc.image[sc.ctr-1] = "images/tamato.png";
+        			sc.correctAnswer++;
 
         		}
         		else{
-        			return 0;
+        			sc.image[sc.ctr-1] = "images/malito.png";
+        			sc.wrongAnswer++;
+
         		}
+
+        		if(sc.wrongAnswer>=2){
+        			alert("your out");
+        		}
+        		else if(sc.correctAnswer >= 2){
+        			alert("your in");
+        		}
+
+
         	}
 
         	
