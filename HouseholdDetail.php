@@ -12,6 +12,10 @@ class HouseholdDetail {
 	protected $numberOfGrandChildren = 0;
 	//protected $isOldest = false;
 	protected $birthYear	= '';
+	protected $firstName = "";
+	protected $middleName = "";
+	protected $lastName = "";
+	protected $extName = "";
 
 	public function __construct($results){
 
@@ -45,6 +49,10 @@ class HouseholdDetail {
 				if($result['rel_hh_name'] == '1 - Household Head'){
 
 					$this->birthYear = $birthYear;
+					$this->firstName = $result['first_name'];
+					$this->middleName = $result['mid_name'];
+					$this->lastName = $result['last_name'];
+					$this->extName = $result['ext_name'];
 
 				}
 
@@ -62,7 +70,7 @@ class HouseholdDetail {
 
 					$fullName = "{$result['first_name']} {$result['mid_name']} {$result['last_name']} {$result['ext_name']}";
 
-					rtrim($fullName);
+					trim($fullName," \t\n\r");
 					array_push($this->childrenNames,$fullName);
 				}
 
@@ -132,6 +140,19 @@ class HouseholdDetail {
 	public function childrenNames(){
 		return $this->childrenNames;
 	}
+
+	public function getHouseholdHeadDetails(){
+
+		$arrayKey = ["firstName","middleName","lastName","extName"];
+
+		$arrayValues = [$this->firstName,$this->middleName,$this->lastName,$this->extName];
+
+		$dummyArray["householdHeadDetails"] = array_combine($arrayKey,$arrayValues);
+
+		return $dummyArray;
+
+	}
+
 
 
 }

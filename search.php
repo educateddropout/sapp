@@ -14,20 +14,30 @@ $postdata = file_get_contents("php://input");
 $request = (array)json_decode($postdata);
 
 $householdID = $request['household_id'];
-//$householdID = '012801001-2-01665418';
+//$householdID = '012801001-2-81665418';
 
 $results  = $database->searchByHousehold($householdID);
 
-//$householdDetail = new HouseholdDetail($results);
-//print_r($householdDetail);
+if(count($results) == 0){
+	$dummyArray["resultCnt"] = 0;
+	print_r(json_encode($dummyArray));
+}
+else{
 
-$householdQuestions = new FormulateHouseholdQuestions(new HouseholdDetail($results));
+	$householdDetails = new HouseholdDetail($results);
 
-// /print_r($householdQuestions->randomQandA());
+	$householdQuestions = new FormulateHouseholdQuestions($householdDetails);
 
-$randomQandA = json_encode($householdQuestions->randomQandA());
+	$householdHeadDetails = $householdDetails->getHouseholdHeadDetails();
 
-print_r($randomQandA);
+
+	//$arrayKey = ["randomQuestions"];
+	$dummyArray["randomQuestions"] = $householdQuestions->randomQandA();
+
+	$dummyVar = substr(json_encode($householdHeadDetails),0,-1).",".substr(json_encode($dummyArray),1);
+	print_r($dummyVar);
+
+}
 
 
 ?>
