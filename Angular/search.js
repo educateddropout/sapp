@@ -54,11 +54,10 @@
 
 					}).then(function mySuccess(response) {
 
-						//console.log(response.data);
-						//console.log(response.data[0].first_name);
-						//console.log(response.data.resultCnt);
-						//console.log(response);
-						if(response.data.resultCnt == 0){
+						if(response.data.resultCnt == -1){ //Already registered
+							sc.household_number_error_message = "Household is already registered";
+						}
+						else if(response.data.resultCnt == 0){
 							sc.household_number_error_message = "No result found!!!";
 						}
 						else{
@@ -93,103 +92,108 @@
         	}
 
         	this.submitAns = function(userAnswer, dbAnswer, questionNumber){
-
-        		
-        		
-        		
-        		
+      		    withError = false;
+      		    sc.userAnswerErrorMessage = "";     		     		
 
         		if(typeof userAnswer === "undefined"){
-        			alert("wakabgsagos");
+        			withError = true;
         			sc.userAnswerErrorMessage = "Please fill up the input box!!";
         		}
         		else{
 
         			if(questionNumber == 1 || questionNumber == 2){
-        				if(userAnswer != "YES" && userAnswer != "NO"){
+        				if(userAnswer.toUpperCase() == "YES" || userAnswer.toUpperCase() == "NO"){
+
+        					sc.userAnswerErrorMessage = "";
+        				}
+        				else{
+        					withError = true;
         					sc.userAnswerErrorMessage = "Answer must be YES or NO only!!";
         				}
 
         			}
         			else if(questionNumber	== 9 || questionNumber	== 5 || questionNumber	== 4 || questionNumber	== 0){
         				if(isNaN(userAnswer) || userAnswer.length != 4){
+        					withError = true;
         					sc.userAnswerErrorMessage = "Invalid YEAR format!!";
         				}
         			}
-        			else{
-	        			sc.ctr++;
-		        		if(questionNumber == 10){
 
-		        			if(nameChecker(dbAnswer,userAnswer) != -1){
-		        				sc.image[sc.ctr-1] = "images/tamato.png";
-			        			sc.correctAnswer++;
-		        			}
-		        			else{
-		        				sc.image[sc.ctr-1] = "images/malito.png";
-			        			sc.wrongAnswer++;
-		        			}
+	        	}
+
+	        	if(withError == false){
+		        	sc.ctr++;
+	        		if(questionNumber == 10){
+
+	        			if(nameChecker(dbAnswer,userAnswer) != -1){
+	        				sc.image[sc.ctr-1] = "images/tamato.png";
+		        			sc.correctAnswer++;
+	        			}
+	        			else{
+	        				sc.image[sc.ctr-1] = "images/malito.png";
+		        			sc.wrongAnswer++;
+	        			}
+
+	        		}
+	        		else{
+
+
+		        		if(userAnswer.toUpperCase() == dbAnswer){
+		        			sc.image[sc.ctr-1] = "images/tamato.png";
+		        			sc.correctAnswer++;
 
 		        		}
 		        		else{
+		        			sc.image[sc.ctr-1] = "images/malito.png";
+		        			sc.wrongAnswer++;
 
-
-			        		if(userAnswer.toUpperCase() == dbAnswer){
-			        			sc.image[sc.ctr-1] = "images/tamato.png";
-			        			sc.correctAnswer++;
-
-			        		}
-			        		else{
-			        			sc.image[sc.ctr-1] = "images/malito.png";
-			        			sc.wrongAnswer++;
-
-			        		}
-			        	}
-
-
-
-		        		if(sc.wrongAnswer>=2){
-		        			alert("YOUR OUT. FUCKING LIAARRRRRR!!!!!!");
-		        			sc.ctr++;
-
-		        			this.responseMessage = $http({
-								method: "POST",
-								url: "denied.php",
-								data: {
-								   "household_id" : sc.household_id,
-							},
-							headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-
-							}).then(function mySuccess(response) {
-
-								
-								//console.log(response.data);
-								if(response.data.insertErrCtr == 1){
-									location.reload();
-								}
-								else{
-									console.log("Found error inserting data");
-								}
-								
-
-							}, function myError(response) {
-
-								console.log("response");
-
-							});
-
-
-		        		}
-		        		else if(sc.correctAnswer >= 2){
-
-		        			alert("Verified!!");
-		        			sc.ctr++;
-
-
-		        			fullName = sc.first_name + " " + sc.middle_name + " " + sc.last_name + " " + sc.ext_name;
-		        			sc.readyForRegistration	= 1;
 		        		}
 		        	}
-	        	}
+
+
+
+	        		if(sc.wrongAnswer>=2){
+	        			alert("YOUR OUT. FUCKING LIAARRRRRR!!!!!!");
+	        			sc.ctr++;
+
+	        			this.responseMessage = $http({
+							method: "POST",
+							url: "denied.php",
+							data: {
+							   "household_id" : sc.household_id,
+						},
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+
+						}).then(function mySuccess(response) {
+
+							
+							//console.log(response.data);
+							if(response.data.insertErrCtr == 1){
+								location.reload();
+							}
+							else{
+								console.log("Found error inserting data");
+							}
+							
+
+						}, function myError(response) {
+
+							console.log("response");
+
+						});
+
+
+	        		}
+	        		else if(sc.correctAnswer >= 2){
+
+	        			alert("Verified!!");
+	        			sc.ctr++;
+
+
+	        			fullName = sc.first_name + " " + sc.middle_name + " " + sc.last_name + " " + sc.ext_name;
+	        			sc.readyForRegistration	= 1;
+	        		}
+        		}
 
 
         	}

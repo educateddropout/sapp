@@ -16,28 +16,36 @@ $request = (array)json_decode($postdata);
 $householdID = $request['household_id'];
 //$householdID = '012801001-2-81665418';
 
-$results  = $database->searchByHousehold($householdID);
+$results  = $database->searchIfRegisteredBene($householdID);
 
-if(count($results) == 0){
-	$dummyArray["resultCnt"] = 0;
+if(count($results) != 0){
+	$dummyArray["resultCnt"] = -1;
 	print_r(json_encode($dummyArray));
 }
 else{
 
-	$householdDetails = new HouseholdDetail($results);
+	$results  = $database->searchByHousehold($householdID);
 
-	$householdQuestions = new FormulateHouseholdQuestions($householdDetails);
+	if(count($results) == 0){
+		$dummyArray["resultCnt"] = 0;
+		print_r(json_encode($dummyArray));
+	}
+	else{
 
-	$householdHeadDetails = $householdDetails->getHouseholdHeadDetails();
+		$householdDetails = new HouseholdDetail($results);
+
+		$householdQuestions = new FormulateHouseholdQuestions($householdDetails);
+
+		$householdHeadDetails = $householdDetails->getHouseholdHeadDetails();
 
 
-	//$arrayKey = ["randomQuestions"];
-	$dummyArray["randomQuestions"] = $householdQuestions->randomQandA();
+		//$arrayKey = ["randomQuestions"];
+		$dummyArray["randomQuestions"] = $householdQuestions->randomQandA();
 
-	$dummyVar = substr(json_encode($householdHeadDetails),0,-1).",".substr(json_encode($dummyArray),1);
-	print_r($dummyVar);
+		$dummyVar = substr(json_encode($householdHeadDetails),0,-1).",".substr(json_encode($dummyArray),1);
+		print_r($dummyVar);
 
+	}
 }
-
 
 ?>

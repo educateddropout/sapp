@@ -1,6 +1,6 @@
 <?php
 
-
+	//$savingHHCtr = $_GET["success"]; // 1 success, 0 error
 
 ?>
 <!DOCTYPE html>
@@ -18,10 +18,24 @@
 	<script type="text/javascript" src="Angular/search.js"></script>
 </head>
 <body ng-app="search">
-	<header class="w3-theme">
-		
-		<a class="" href=#><strong>UCT Search App</strong></a>
-	</header>
+
+	<!-- Navbar (sit on top) -->
+	<div class="w3-top w3-theme" >
+		<div class="w3-row w3-padding">
+			<div class="w3-col l6 w3-wide w3-padding"><strong>UCT SVR</strong></div>
+			<div class="w3-col l6 ">
+				
+				<div class="w3-row-padding w3-right">
+					<div class="w3-third">
+						<a href="logout.php" class="w3-btn"><strong><u>Logout</u></strong></a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<br>
+	<br>
 	<br>
 	<main role="main" class="w3-container" ng-controller="searchCtrl as sc">
 		<div class="w3-row">
@@ -78,13 +92,17 @@
 								</div>
 								<div class="w3-half">
 									<div class="w3-row">
-										<div class='w3-col s8 w3-container'><input ng-model="rs.userAnswer" class="w3-input w3-border" type="text" style="text-transform:uppercase"></div>
+										<div class='w3-col s8 w3-container'>
+											<label>&nbsp{{rs.remarks}}</label>
+											<input ng-model="rs.userAnswer" class="w3-input w3-border" type="text" style="text-transform:uppercase">
+										</div>
 										<div class='w3-col s4 w3-container w3-right'>
+											<br>
 											<button class="w3-btn w3-border w3-theme-action" ng-click="ansctr = sc.submitAns(rs.userAnswer, rs.answer, rs.qnum)">Submit</button>
 										</div>
 									</div>
 									<div class="w3-row">
-										<div class='w3-col s8 w3-container'>{{rs.remarks}}
+										<div class='w3-col s8 w3-container'>
 												<span class="w3-right w3-text-red">{{sc.userAnswerErrorMessage}}</span>
 										</div>
 										<div class='w3-col s4 w3-container'>

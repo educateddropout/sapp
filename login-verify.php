@@ -8,7 +8,9 @@
 
 
 	if(in_array($username, $userList) && $password == "nhtspr12345."){
-		$url = "location:search.php";
+		$url = "location:search.view.php";
+		session_start();
+		$_SESSION["svr_user_id"] = $username;
 		header($url);
 		exit();
 	}

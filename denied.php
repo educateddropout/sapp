@@ -1,6 +1,7 @@
 <?php
 
 $database = require 'bootstrap.php';
+session_start();
 
 // setting return value
 header("Access-Control-Allow-Origin: *");
@@ -14,7 +15,7 @@ $request = (array)json_decode($postdata);
 date_default_timezone_set('Asia/Manila');
 $householdID = $request['household_id'];
 //$householdID = '012801001-2-01665418';
-$appUser = "mambo_no_5";
+$appUser = $_SESSION["svr_user_id"];
 $currentDate = date("Y-m-d H:i:s");
 
 $arrayKey = ["updateErrCtr","insertErrCtr"];

@@ -24,7 +24,7 @@ class FormulateHouseholdQuestions{
 		$arrayQ2 = array_combine($arrayKey, $dummyArray);
 
 		//Q3
-		$dummyArray = array(3,"How many grandchildren of the household head living in the household?",$householdDetail->numberOfGrandChildren(),"");
+		$dummyArray = array(3,"How many grandchildren of the household head living in the household?",$householdDetail->numberOfGrandChildren()," ");
 		$arrayQ3 = array_combine($arrayKey, $dummyArray);
 
 		array_push($arrayQandA, $arrayQ0, $arrayQ1, $arrayQ2, $arrayQ3);
@@ -41,16 +41,16 @@ class FormulateHouseholdQuestions{
 			$arrayQ5 = array_combine($arrayKey, $dummyArray);
 
 			//Q6
-			$dummyArray = array(6,"How many children of the household head living in the household?",$householdDetail->numberOfChildren(),"");
+			$dummyArray = array(6,"How many children of the household head living in the household?",$householdDetail->numberOfChildren()," ");
 			$arrayQ6 = array_combine($arrayKey, $dummyArray);
 
 			//Q7
-			$dummyArray = array(7,"How many members do you have in your household? (Including other relative, domestic helper, non-relative and boarder).",$householdDetail->rosterCount(),"");
+			$dummyArray = array(7,"How many members do you have in your household? (Including other relative, domestic helper, non-relative and boarder).",$householdDetail->rosterCount()," ");
 			$arrayQ7 = array_combine($arrayKey, $dummyArray);
 
 			
 			//Q8
-			$dummyArray = array(8,"How many grandchildren of the household head living in the household?",$householdDetail->numberOfGrandChildren(),"");
+			$dummyArray = array(8,"How many grandchildren of the household head living in the household?",$householdDetail->numberOfGrandChildren()," ");
 			$arrayQ8 = array_combine($arrayKey, $dummyArray);
 
 			array_push($arrayQandA, $arrayQ4, $arrayQ5, $arrayQ6, $arrayQ7, $arrayQ8);

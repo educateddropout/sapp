@@ -26,6 +26,18 @@ class QueryBuilder
 
 	}
 
+	public function searchIfRegisteredBene($householdID){
+
+		$statement = $this->pdo->prepare("SELECT * from tbl_uct_bene
+											WHERE hh_id = '{$householdID}'");
+
+		$statement->execute();
+
+		return $statement->fetchAll(PDO::FETCH_ASSOC);
+		//return $statement->errorInfo();
+
+	}
+
 	public function tagDeniedHousehold($householdID){
 
 		$statement = $this->pdo->prepare("UPDATE tbl_search
@@ -60,7 +72,7 @@ class QueryBuilder
 
 		$statement->execute([$householdID, $firstName, $middleName, $lastName, $extName, $appuserID, $currentDate, $archive]);
 
-		return $statement->errorInfo();
+		return $statement->rowCount();
 
 	}
 
