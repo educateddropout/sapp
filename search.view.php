@@ -1,7 +1,7 @@
 <?php
 
 	//$savingHHCtr = $_GET["success"]; // 1 success, 0 error
-
+	require 'sessionCheck.php';
 ?>
 <!DOCTYPE html>
 <html>
