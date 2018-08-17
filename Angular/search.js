@@ -54,6 +54,7 @@
 
 					}).then(function mySuccess(response) {
 
+						console.log(response.data);
 						if(response.data.resultCnt == -1){ //Already registered
 							sc.household_number_error_message = "Household is already registered";
 						}
@@ -153,7 +154,7 @@
 
 
 	        		if(sc.wrongAnswer>=2){
-	        			alert("YOUR OUT. FUCKING LIAARRRRRR!!!!!!");
+	        			alert("DENIED!!");
 	        			sc.ctr++;
 
 	        			this.responseMessage = $http({

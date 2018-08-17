@@ -10,7 +10,7 @@ class Connection
 
 		try{
 
-			return new PDO('mysql:host=localhost;dbname=search_db','root','');
+			return new PDO('mysql:host=localhost;dbname=search_db','root','', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 
 		} catch (PDOException $e) {
 

@@ -16,9 +16,17 @@ class QueryBuilder
 
 	public function searchByHousehold($householdID){
 
-		$statement = $this->pdo->prepare("SELECT * from tbl_search
+		$statement = $this->pdo->prepare("SELECT hh_id, birthday, rel_hh,
+											AES_DECRYPT(first_name,'.listahanan2_UCT.') as 'first_name',
+											AES_DECRYPT(mid_name,'.listahanan2_UCT.') as 'mid_name',
+											AES_DECRYPT(last_name,'.listahanan2_UCT.') as 'last_name',
+											AES_DECRYPT(ext_name,'.listahanan2_UCT.') as 'ext_name'
+											FROM tbl_search
 											WHERE hh_id = '{$householdID}'");
 
+		/*$statement = $this->pdo->prepare("SELECT *
+											FROM tbl_search
+											WHERE hh_id = '{$householdID}'");*/
 		$statement->execute();
 
 		return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +36,7 @@ class QueryBuilder
 
 	public function searchIfRegisteredBene($householdID){
 
-		$statement = $this->pdo->prepare("SELECT * from tbl_uct_bene
+		$statement = $this->pdo->prepare("SELECT * FROM tbl_uct_bene
 											WHERE hh_id = '{$householdID}'");
 
 		$statement->execute();
@@ -68,9 +76,10 @@ class QueryBuilder
 		$archive = 0;
 
 		$statement = $this->pdo->prepare("INSERT tbl_uct_bene (hh_id, first_name, mid_name, last_name, ext_name, user_id, datetime_added, archive)
-											VALUES (?,?,?,?,?,?,?,?)" );
+											VALUES ('{$householdID}',AES_ENCRYPT('{$firstName}', '.listahanan2_UCT.'),AES_ENCRYPT('{$middleName}', '.listahanan2_UCT.'),AES_ENCRYPT('{$lastName}', '.listahanan2_UCT.'),AES_ENCRYPT('{$extName}', '.listahanan2_UCT.'),'{$appuserID}','{$currentDate}',{$archive})" );
 
-		$statement->execute([$householdID, $firstName, $middleName, $lastName, $extName, $appuserID, $currentDate, $archive]);
+		$statement->execute();
+		//$statement->execute([$householdID, $firstName, $middleName, $lastName, $extName, $appuserID, $currentDate, $archive]);
 
 		return $statement->rowCount();
 

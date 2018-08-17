@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="lib/css/v4/w3-theme-blue-grey.css">
 	<link rel="stylesheet" href="lib/css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript"  src="lib/js/jquery-3.3.1.slim.min.js" ></script>
+	<link rel="icon" type="image/png" href="images/sapp.ico">
 	<style>
 	.footer {
 	   position: fixed;
@@ -26,17 +27,32 @@
 	<div class="w3-row w3-padding">
 		<div class="w3-col l6 w3-wide w3-padding"><strong>UCT SVR</strong></div>
 		<div class="w3-col l6 ">
-			<form action="login-verify.php" method="POST">
-			<div class="w3-row-padding w3-right">
-				<div class="w3-third"><input class="w3-input w3-theme-l2 w3-round-xlarge" type="text" placeholder="Enter Username" name="username" required></div>
-				<div class="w3-third w3-rightbar w3-border-theme">
-					<input class="w3-input  w3-theme-l2 w3-round-xlarge" type="password" placeholder="Enter Password" name="password" required>
+			<div class='w3-row'>	
+				<form action="login-verify.php" method="POST">
+				<div class="w3-row-padding w3-right">
+					<div class="w3-third"><input class="w3-input w3-theme-l2 w3-round-xlarge" type="text" placeholder="Enter Username" name="username" required>
+					
+					<?php 
+						if(isset($_GET["error"])){
+							echo "<label class='w3-text-red w3-small'>Invalid username or password</label>";
+						}
+						else{
+							echo "<label class='w3-text-red'>&nbsp</label>";
+						}
+					?>
+					</div>
+					<div class="w3-third w3-rightbar w3-border-theme">
+						<input class="w3-input  w3-theme-l2 w3-round-xlarge" type="password" placeholder="Enter Password" name="password" required>
+					</div>
+					<div class="w3-third">
+						<button class="w3-button w3-theme-action" type="submit"><strong>Login</strong></button>
+					</div>
 				</div>
-				<div class="w3-third">
-					<button class="w3-button w3-theme-action" type="submit"><strong>Login</strong></button>
+				<div class="w3-row">
+				
 				</div>
+				</form>
 			</div>
-			</form>
 		</div>
 		
 	</div>

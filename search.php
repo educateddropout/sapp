@@ -14,7 +14,7 @@ $postdata = file_get_contents("php://input");
 $request = (array)json_decode($postdata);
 
 $householdID = $request['household_id'];
-//$householdID = '012801001-2-81665418';
+//$householdID = '021503004-2-02892919';
 
 $results  = $database->searchIfRegisteredBene($householdID);
 
@@ -38,8 +38,9 @@ else{
 
 		$householdHeadDetails = $householdDetails->getHouseholdHeadDetails();
 
-
-		//$arrayKey = ["randomQuestions"];
+		//print_r($results);
+		//print_r(substr(json_encode($householdHeadDetails),0,-1));
+		
 		$dummyArray["randomQuestions"] = $householdQuestions->randomQandA();
 
 		$dummyVar = substr(json_encode($householdHeadDetails),0,-1).",".substr(json_encode($dummyArray),1);

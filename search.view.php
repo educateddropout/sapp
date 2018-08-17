@@ -2,12 +2,14 @@
 
 	//$savingHHCtr = $_GET["success"]; // 1 success, 0 error
 	require 'sessionCheck.php';
+	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	
 	<title>Search App Home Page</title>
+	<link rel="icon" type="image/png" href="images/sapp.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="lib/css/v4/w3.css">
@@ -16,7 +18,9 @@
 	<link rel="stylesheet" href="lib/css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<script src="lib/js/angular.min.js"></script>
 	<script type="text/javascript" src="Angular/search.js"></script>
+
 </head>
+
 <body ng-app="search">
 
 	<!-- Navbar (sit on top) -->
@@ -69,9 +73,9 @@
 				<div class="w3-row w3-right">
 					<div class="w3-col">
 						<div class="w3-row-padding">
-							<div class="w3-col s4 "><div class="w3-border"><img ng-src="{{sc.image[0]}}" height="42" width="42"></div></div>
-							<div class="w3-col s4 "><div class="w3-border"><img ng-src="{{sc.image[1]}}" height="42" width="42"></div></div>
-							<div class="w3-col s4 "><div class="w3-border"><img ng-src="{{sc.image[2]}}" height="42" width="42"></div></div>
+							<div class="w3-col s4 "><div class=""><img ng-src="{{sc.image[0]}}" height="42" width="42"></div></div>
+							<div class="w3-col s4 "><div class=""><img ng-src="{{sc.image[1]}}" height="42" width="42"></div></div>
+							<div class="w3-col s4 "><div class=""><img ng-src="{{sc.image[2]}}" height="42" width="42"></div></div>
 						</div>
 					</div>
 				</div>
@@ -125,7 +129,7 @@
 					</div>
 					<div class="w3-container ">
 						<br>
-						<form action="registerHousehold.php" method="post">
+						<form action="registerHousehold.php" method="post" onsubmit="return confirm('Are all the details correct?');">
 							<div class="w3-twothird w3-rightbar w3-border-theme" >
 								<input class="w3-input w3-border" type="text" ng-model="sc.household_id" name="household_id" maxlength="20" ng-hide="sc.hideForever == 0">
 

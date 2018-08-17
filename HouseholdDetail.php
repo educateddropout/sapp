@@ -46,7 +46,7 @@ class HouseholdDetail {
 					}
 				}
 
-				if($result['rel_hh_name'] == '1 - Household Head'){
+				if($result['rel_hh'] == '1 - Household Head'){
 
 					$this->birthYear = $birthYear;
 					$this->firstName = $result['first_name'];
@@ -58,13 +58,13 @@ class HouseholdDetail {
 
 
 				
-				if($result['rel_hh_name'] == '2 - Wife / Spouse'){
+				if($result['rel_hh'] == '2 - Wife / Spouse'){
 
 					$this->spouseBirthYear = $birthYear;
 
 				}
 				
-				if($result['rel_hh_name'] == '3 - Son / Daughter'){
+				if($result['rel_hh'] == '3 - Son / Daughter'){
 
 					$this->numberOfChildren++;
 
@@ -74,20 +74,20 @@ class HouseholdDetail {
 					array_push($this->childrenNames,$fullName);
 				}
 
-				if($result['rel_hh_name'] == '4 - Brother / Sister'){
+				if($result['rel_hh'] == '4 - Brother / Sister'){
 
 					$this->withSibling	= "YES";
 
 				}
 
 			
-				if($result['rel_hh_name'] == '6 - Grandson / Granddaugh'){
+				if($result['rel_hh'] == '6 - Grandson / Granddaugh'){
 
 					$this->numberOfGrandChildren++;
 
 				}
 
-				if($result['rel_hh_name'] == '7 - Father / Mother'){
+				if($result['rel_hh'] == '7 - Father / Mother'){
 
 					$this->withParent	= "YES";
 
