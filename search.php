@@ -13,10 +13,10 @@ header("Content-Type: application/json; charset=UTF-8");
 $postdata = file_get_contents("php://input");
 $request = (array)json_decode($postdata);
 
-$householdID = $request['household_id'];
-//$householdID = '021503004-2-02892919';
+$householdNumber = $request['household_number'];
+$householdNumber = '01665423';
 
-$results  = $database->searchIfRegisteredBene($householdID);
+$results  = $database->searchIfRegisteredBene($householdNumber);
 
 if(count($results) != 0){
 	$dummyArray["resultCnt"] = -1;
@@ -24,7 +24,7 @@ if(count($results) != 0){
 }
 else{
 
-	$results  = $database->searchByHousehold($householdID);
+	$results  = $database->searchByHousehold($householdNumber);
 
 	if(count($results) == 0){
 		$dummyArray["resultCnt"] = 0;

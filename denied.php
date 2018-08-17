@@ -13,15 +13,15 @@ $postdata = file_get_contents("php://input");
 $request = (array)json_decode($postdata);
 
 date_default_timezone_set('Asia/Manila');
-$householdID = $request['household_id'];
+$householdNumber = $request['household_number'];
 //$householdID = '012801001-2-01665418';
 $appUser = $_SESSION["svr_user_id"];
 $currentDate = date("Y-m-d H:i:s");
 
 $arrayKey = ["updateErrCtr","insertErrCtr"];
 
-$updateErrCtr = $database->tagDeniedHousehold($householdID);
-$insertErrCtr = $database->trackDeniedHousehold($householdID,$appUser,$currentDate);
+$updateErrCtr = $database->tagDeniedHousehold($householdNumber);
+$insertErrCtr = $database->trackDeniedHousehold($householdNumber,$appUser,$currentDate);
 
 $dummyArray = [$updateErrCtr, $insertErrCtr ];
 

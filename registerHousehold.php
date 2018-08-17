@@ -3,7 +3,7 @@
 $database = require 'bootstrap.php';
 session_start();
 
-$householdID = $_POST['household_id'];
+$householdID = $_POST['household_number'];
 $firstName =  $_POST['first_name'];
 $middleName = $_POST['middle_name'];
 $lastName = $_POST['last_name'];

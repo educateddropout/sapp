@@ -47,8 +47,8 @@
 			<div class="w3-col l10 ">
 				<div class="w3-row">
 					<div class="w3-half">
-						<label><strong>Household ID:</strong></label>
-						<input class="w3-input w3-border" type="text" ng-model="sc.household_id" maxlength="20">
+						<label><strong>Household Number:</strong></label>
+						<input class="w3-input w3-border" type="text" ng-model="sc.household_number" maxlength="20">
 						<span class="w3-text-red">{{sc.household_number_error_message}}</span>
 
 						
@@ -131,7 +131,7 @@
 						<br>
 						<form action="registerHousehold.php" method="post" onsubmit="return confirm('Are all the details correct?');">
 							<div class="w3-twothird w3-rightbar w3-border-theme" >
-								<input class="w3-input w3-border" type="text" ng-model="sc.household_id" name="household_id" maxlength="20" ng-hide="sc.hideForever == 0">
+								<input class="w3-input w3-border" type="text" ng-model="sc.household_number" name="household_number" maxlength="20" ng-hide="sc.hideForever == 0">
 
 								<div class="w3-row-padding">
 									

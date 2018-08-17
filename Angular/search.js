@@ -27,12 +27,9 @@
 				withError = false;
 				sc.household_number_error_message = "";
 
-				if(sc.household_id.length == 20){
-					psgcCode = sc.household_id.substr(0,9);
-					hhNumber = sc.household_id.substr(12,8);
-					urbRur = sc.household_id.substr(10,1);
+				if(sc.household_number.length == 8){
 
-					if(isNaN(psgcCode) || isNaN(hhNumber) || isNaN(urbRur)){
+					if(isNaN(sc.household_number)){
 						withError = true;
 					}
 
@@ -48,7 +45,7 @@
 						method: "POST",
 						url: "search.php",
 						data: {
-						   "household_id" : sc.household_id,
+						   "household_number" : sc.household_number,
 					},
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
@@ -161,7 +158,7 @@
 							method: "POST",
 							url: "denied.php",
 							data: {
-							   "household_id" : sc.household_id,
+							   "household_number" : sc.household_number,
 						},
 						headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
