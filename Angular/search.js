@@ -22,6 +22,7 @@
 			this.readyForRegistration = 0; //hide household head detail
 			this.skip = 0;
 			this.userAnswerErrorMessage = "";
+			this.userType = 1;
 
 			this.submitSearch = function(){
 				withError = false;
@@ -41,6 +42,7 @@
 
 				if(withError == false ){
 
+
 					this.responseMessage = $http({
 						method: "POST",
 						url: "search.php",
@@ -58,10 +60,27 @@
 						else if(response.data.resultCnt == 0){
 							sc.household_number_error_message = "No result found!!!";
 						}
+						else if(response.data.resultCnt == 1){ // admin no found hh in uct_bene
+							sc.household_number_error_message = "Household is not yet registered";
+						}
+						else if(response.data.resultCnt == 2){ // admin found hh in uct_bene for editing
+							sc.householdHeadDetails = response.data.householdHeadDetails
+							sc.first_name = sc.householdHeadDetails.firstName;
+	        				sc.middle_name = sc.householdHeadDetails.middleName;
+	        				sc.last_name = sc.householdHeadDetails.lastName;
+	        				sc.ext_name = sc.householdHeadDetails.extName;
+	        				sc.lockSearchButton = 1; //disabled
+
+							sc.readyForRegistration	= 1;
+			        		sc.image[0] = "images/ff.png";
+			        		sc.image[1] = "images/ff.png";
+			        		sc.image[2] = "images/ff.png";
+			        		sc.ctr = 3;
+						}
 						else{
 							sc.results = response.data.randomQuestions;
 							sc.householdHeadDetails = response.data.householdHeadDetails
-							sc.first_name = sc.householdHeadDetails.firstName;
+							sc.first_name  = sc.householdHeadDetails.firstName;
 	        				sc.middle_name = sc.householdHeadDetails.middleName;
 	        				sc.last_name = sc.householdHeadDetails.lastName;
 	        				sc.ext_name = sc.householdHeadDetails.extName;
@@ -74,6 +93,7 @@
 						console.log("response");
 
 					});
+
 				}
 				else{
 					sc.household_number_error_message = "Invalid household number format. Please Check!!";

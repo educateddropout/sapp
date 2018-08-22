@@ -17,7 +17,7 @@ class HouseholdDetail {
 	protected $lastName = "";
 	protected $extName = "";
 
-	public function __construct($results){
+	public function __construct($results,$userType){
 
 		$this->rosterCount	= count($results);
 
@@ -25,6 +25,7 @@ class HouseholdDetail {
 
 		foreach ($results as $result) {
 
+			if($userType == 1 ){ //encoder user
 				$birthYear = substr($result['birthday'], 0, 4);
 
 				//minimum and maximum birthYear
@@ -92,6 +93,13 @@ class HouseholdDetail {
 					$this->withParent	= "YES";
 
 				}
+			}
+			else{ // admin
+				$this->firstName = $result['first_name'];
+				$this->middleName = $result['mid_name'];
+				$this->lastName = $result['last_name'];
+				$this->extName = $result['ext_name'];
+			}
 
 			$ctr++;
 		}

@@ -11,6 +11,13 @@
 		$url = "location:search.view.php";
 		session_start();
 		$_SESSION["svr_user_id"] = $username;
+		$_SESSION["svr_user_type"] = 1;
+
+		if($username == "admin"){
+			$_SESSION["svr_user_type"] = 0;
+			
+		}
+
 		header($url);
 		exit();
 	}

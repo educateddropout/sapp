@@ -14,7 +14,7 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="lib/css/v4/w3.css">
 	<link rel="stylesheet" href="lib/css/v4/w3-theme-blue-grey.css">
-	<script type="text/javascript"  src="lib/js/jquery-3.3.1.min.js" ></script>
+	<script type="text/javascript"  src="lib/js/jquery-3.3.1.slim.min.js" ></script>
 	<link rel="stylesheet" href="lib/css/font-awesome-4.7.0/css/font-awesome.min.css">
 	<script src="lib/js/angular.min.js"></script>
 	<script type="text/javascript" src="Angular/search.js"></script>
@@ -48,7 +48,7 @@
 				<div class="w3-row">
 					<div class="w3-half">
 						<label><strong>Household Number:</strong></label>
-						<input class="w3-input w3-border" type="text" ng-model="sc.household_number" maxlength="8">
+						<input class="w3-input w3-border" type="text" ng-model="sc.household_number" maxlength="20">
 						<span class="w3-text-red">{{sc.household_number_error_message}}</span>
 
 						
@@ -57,10 +57,6 @@
 						<div class="w3-third w3-container">
 							<label>&nbsp<br></label>
 							<button class="w3-button w3-theme-action w3-ripple" ng-click="sc.submitSearch()" ng-disabled="sc.lockSearchButton == 1"><i class="fa fa-search" aria-hidden="true"></i><strong>&nbspSearch</strong></button>
-						</div>
-						<div id="successDiv" class="w3-third w3-container w3-text-black w3-pale-green w3-center w3-card-4">
-								Household <strong>succesfully</strong> registered!
-								<button id="buttonSuccess">test</button>
 						</div>
 						<div class="w3-third w3-container w3-right">
 							<label>&nbsp<br></label>
@@ -134,25 +130,25 @@
 						<br>
 						<form action="registerHousehold.php" method="post" onsubmit="return confirm('Are all the details correct?');">
 							<div class="w3-twothird w3-rightbar w3-border-theme" >
-								<input class="w3-input w3-border" type="text" ng-model="sc.household_number" name="household_number" maxlength="8" ng-hide="sc.hideForever == 0">
+								<input class="w3-input w3-border" type="text" ng-model="sc.household_number" name="household_number" maxlength="20" ng-hide="sc.hideForever == 0">
 
 								<div class="w3-row-padding">
 									
 									<div class="w3-quarter ">
 										<label>First Name:</label>
-										<input class="w3-input w3-border" type="text" ng-model="sc.first_name" name="first_name" ng-change="sc.first_name=sc.first_name.toUpperCase();" maxlength="40">
+										<input class="w3-input w3-border" type="text" ng-model="sc.first_name" name="first_name" maxlength="40">
 									</div>
 									<div class="w3-quarter ">
 										<label>Middle Name:</label>
-										<input class="w3-input w3-border" type="text" ng-model="sc.middle_name" name="middle_name" ng-change="sc.middle_name=sc.middle_name.toUpperCase();" maxlength="40">
+										<input class="w3-input w3-border" type="text" ng-model="sc.middle_name" name="middle_name" maxlength="40">
 									</div>
 									<div class="w3-quarter ">
 										<label>Last Name:</label>
-										<input class="w3-input w3-border" type="text" ng-model="sc.last_name" name="last_name" ng-change="sc.last_name=sc.last_name.toUpperCase();" maxlength="40">
+										<input class="w3-input w3-border" type="text" ng-model="sc.last_name" name="last_name" maxlength="40">
 									</div>
 									<div class="w3-quarter ">
 										<label>Ext Name:</label>
-										<input class="w3-input w3-border" type="text" ng-model="sc.ext_name" name="ext_name" ng-change="sc.ext_name=sc.ext_name.toUpperCase();" maxlength="10">
+										<input class="w3-input w3-border" type="text" ng-model="sc.ext_name" name="ext_name" maxlength="10">
 									</div>
 
 								</div>
@@ -170,12 +166,8 @@
 			<div class="w3-col l1">&nbsp</div>
 		</div>
 
+		
 
 	</main>
 </body>
-<script type="text/javascript">
-	$(document).ready(function(){
-	    $("#successDiv").fadeOut(5000);
-	});
-</script>
 </html>
